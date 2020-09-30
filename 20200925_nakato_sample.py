@@ -2,6 +2,7 @@
 import os
 import sys
 import argparse
+import pandas as pd
 
 def read_file(path):
     lines = []
@@ -11,10 +12,22 @@ def read_file(path):
 
     return lines
 
+def read_filepa(path):
+    data = pd.read_table(path)
+    lines = len(data)
+
+    return plines
+
 # change this function that uses pandas library
 def count_lines(file_path):
     lines = read_file(file_path)
     return len(lines)
+
+def count_entry(file_path):
+    data = pd.read_table(file_path)
+    data.columns = ['city','adress']
+    counts = data['city'].value_counts()
+    return counts             
 
 # main関数を定義 (to increase readability)
 if __name__ == "__main__":
@@ -32,3 +45,7 @@ if __name__ == "__main__":
     len = count_lines(filename)
 
     print('length is {}'.format(len))
+
+    count = count_entry(filename)
+
+    print('Unique counts is {}' .format(count))
